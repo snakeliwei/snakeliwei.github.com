@@ -24,6 +24,7 @@ build:
         - "source/images"
         - "README.md"
         - "LICENSE"
+        - "CNAME"
     # Excuted command when use 'ink publish'
     publish: |
         git add . -A
