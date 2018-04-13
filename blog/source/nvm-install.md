@@ -14,13 +14,14 @@ cover: "-/images/nodejs.png"
 
 ![Node](/images/nodejs.png)
 ## 安装[NVM](https://github.com/creationix/nvm)
+
 ### 从GITHUB获取最新链接
-* Use curl
+* Use curl install
 ```bash
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 ```
 * or use wget
-```
+```bash
 wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 ```
 

@@ -8,7 +8,7 @@ hljs: true
 comments: true
 date: 2015-12-03 14:36:19
 author: me
-cover: "-/images/avatar.png"
+cover: "-/images/zsh.png"
 ---
 ![overlay](http://docs.daocloud.io/images/c/0/3/5/1/c03512523e75f366ecf8f40442cbd8b46b227d28-3.png)
 OverlayFS之前已经加入到了Ubuntu内核中，但是那并不是我们想要的。Overlay（没有FS）是一个不同的内核模块，因此你需要安装3.18（或者以上）的内核，Docker你需要安装Docker 1.4或者更高版本。
