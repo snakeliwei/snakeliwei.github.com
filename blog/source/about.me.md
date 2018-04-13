@@ -5,8 +5,8 @@ cover: "-/images/avatar.png"
 
 ---
 
-## 纸小墨
+## Lyndon
 
-构建只为纯粹书写的博客。
+一个徘徊于DevOps & AIOps间的Geeker。
 
 [http://blog.lyndon.pw/](http://blog.lyndon.pw/)
