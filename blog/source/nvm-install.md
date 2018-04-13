@@ -8,11 +8,11 @@ hljs: true
 comments: true
 date: 2017-07-17 15:10:51
 author: me
-cover: "-/images/zsh.png"
+cover: "-/images/nodejs.png"
 ---
 > 使用NVM来管理node的版本，并使用国内镜像安装
 
-![Node](/images/nodejs.jpg)
+![Node](/images/nodejs.png)
 ## 安装[NVM](https://github.com/creationix/nvm)
 ### 从GITHUB获取最新链接
 * Use curl

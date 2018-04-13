@@ -12,7 +12,7 @@ cover: "-/images/zsh.png"
 ---
 > 在ubuntu下用apt安装nodejs太坑，现在记录下另外两种安装方式以备用
 
-![Node](/images/nodejs.jpg)
+![Node](/images/nodejs.png)
 ## 二进制包安装
 1. 官网下载二进制包,并解压到相应目录
 ```bash
