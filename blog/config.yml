@@ -4,8 +4,8 @@ site:
     limit: 10
     theme: theme
     lang: zh
-    url: "http://blog.lyndon.pw"
-    comment: username
+    url: "https://blog.lyndon.pw"
+    comment: snakeliwei
     logo: "-/images/avatar.png"
     # link: "{category}/{year}/{month}/{day}/{title}.html"
     # root: "/blog"
@@ -23,6 +23,7 @@ build:
     copy:
         - "source/images"
         - "README.md"
+        - "LICENSE"
     # Excuted command when use 'ink publish'
     publish: |
         git add . -A

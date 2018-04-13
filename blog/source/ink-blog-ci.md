@@ -1,8 +1,8 @@
-title: "简洁的静态博客构建工具 —— 纸小墨（InkPaper）"
+title: "使用Travis-ci和纸小墨（InkPaper）部署GithubPage"
 date: 2015-03-01 18:00:00 +0800
 update: 2016-07-11 17:00:00 +0800
 author: me
-cover: "-/images/example.png"
+cover: "-/images/ink-Travis.png"
 tags:
     - 设计
     - 写作
@@ -13,8 +13,6 @@ preview: 纸小墨（InkPaper）是一个GO语言编写的开源静态博客构�
 ## 纸小墨简介
 
 纸小墨（InkPaper）是一个GO语言编写的开源静态博客构建工具，可以快速搭建博客网站。它无依赖跨平台，配置简单构建快速，注重简洁易用与更优雅的排版。
-
-![纸小墨 - 简洁的静态博客构建工具](-/images/example.png)
 
 ### 开始上手
 
@@ -132,31 +130,46 @@ Docker构建（示例）
 - Dark(Official Theme): [https://github.com/InkProject/ink-theme-dark](https://github.com/InkProject/ink-theme-dark)
 - simple: [https://github.com/myiq/ink-simple](https://github.com/myiq/ink-simple)
 
-## 相关链接
+## 使用Travis-ci来自动部署GithubPage
 
-- [InkPaper 最佳实践](https://segmentfault.com/a/1190000009084954)
+### 建立Github Page仓库
 
-## 反馈贡献
+- 在Github上建立名为`yourname.github.com`的仓库
 
-纸小墨基于 [CC Attribution-NonCommercial License 4.0](https://creativecommons.org/licenses/by-nc/4.0/) 协议，目前为止它仍然是个非成熟的开源项目，非常欢迎任何人的任何贡献。如有问题可报告至 [https://github.com/InkProject/ink/issues](https://github.com/InkProject/ink/issues)。
+ > 用该名字建立的仓库可用用`yourname.github.io`域名直接访问生成的博客页面。
 
-## 更新历史
+- 将纸小墨的源码push到非master分支上，我使用的是名为blog-src的分支。
 
-- [2016-07-11] 修复诸多Issue与合并一些PR。
-- [2015-08-15] 一些Bug修复，新增RSS订阅支持，主题改善。
-- [2015-07-04] 数项Bug修复与主题改善，支持置顶，多语言，子模板。
-- [2015-06-04] 编译更多平台版本，增加标签与存档页。
-- [2015-03-01] Beta版本，基础功能完成。
+- 在源码根目录新建`.travis.yml`文件，填入下列内容并push到github上：
 
-## 更新计划
+``` yaml
+language: go
 
-- 排版深度优化
-- 纸小墨编辑器
+install:
+  - go get github.com/InkProject/ink
+  - ink build
 
-## 正在使用
+script:
+  - cd ./blog/public/
+  - git init
+  - git config user.name "yourname"
+  - git config user.email "yourname@gmail.com"
+  - git add .
+  - git commit -m "update blogs"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
 
-- [http://www.chole.io/blog/](http://www.chole.io/blog/)
-- [http://blog.hyper.sh/](http://blog.hyper.sh/)
-- [http://wangxu.me/](http://wangxu.me/)
-- [http://whzecomjm.com/](http://whzecomjm.com/)
-- [http://www.shery.me/blog/](http://www.shery.me/blog/)
+branches:
+  only:
+    - blog-src
+env:
+  global:
+    - GH_REF: github.com/yourname/yourname.github.com
+```
+
+### 在Travis-ci.org上进行相关设置
+
+- 用你的 GitHub 账号登录 Travis CI。
+
+- 登录之后，请转到您的配置页，并为你想要构建的仓库启用 Travis CI 。
+
+- 在 Travis CI 里为对应的仓库添加 Github Access Token，用于后续使用 GitHub API. 这样 Travis CI 可以将通过 InkPaper 生成的静态博客源文件推送到 GitHub Pages 分支。
