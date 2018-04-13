@@ -13,7 +13,7 @@ site:
 authors:
     me:
         name: "Lyndon"
-        intro: "构建只为纯粹书写的博客"
+        intro: "一个保持清醒的沉睡者"
         avatar: "-/images/avatar.png"
 
 build:
@@ -22,6 +22,7 @@ build:
     # Copied files to public folder when build
     copy:
         - "source/images"
+        - "README.md"
     # Excuted command when use 'ink publish'
     publish: |
         git add . -A
