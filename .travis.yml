@@ -1,0 +1,27 @@
+language: go
+
+# S: Build Lifecycle
+install:
+  - go get github.com/InkProject/ink
+  # - ink build $GOPATH/src/github.com/InkProject/ink/template
+  - ink build
+# before_script
+
+script:
+  - cd ./blog/public/
+  - git init
+  - git config user.name "snakeliwei"
+  - git config user.email "snakeliwei@gmail.com"
+  - git add .
+  - git commit -m "update blogs"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+
+# after-script:
+# E: Build Lifecycle
+
+branches:
+  only:
+    - blog-src
+env:
+  global:
+    - GH_REF: github.com/snakeliwei/snakeliwei.github.commit
