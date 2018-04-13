@@ -24,4 +24,4 @@ branches:
     - blog-src
 env:
   global:
-    - GH_REF: github.com/snakeliwei/snakeliwei.github.commit
+    - GH_REF: github.com/snakeliwei/snakeliwei.github.com
