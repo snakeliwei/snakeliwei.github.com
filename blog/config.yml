@@ -5,7 +5,7 @@ site:
     theme: theme
     lang: zh
     url: "https://blog.lyndon.pw"
-    comment: snakeliwei
+    comment: snakeliwei@gmail.com
     logo: "-/images/avatar.png"
     # link: "{category}/{year}/{month}/{day}/{title}.html"
     # root: "/blog"
