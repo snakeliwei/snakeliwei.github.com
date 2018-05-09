@@ -8,7 +8,6 @@ hljs: true
 comments: true
 date: 2018-04-08 16:33:51
 author: me
-cover: "-/images/zsh.png"
 ---
 > 今天在更新系统包后在拉取docker image 时莫名出现'libz.so.1: version `ZLIB_1.2.5.1' not found'的错误，解决了顺便记录下。
 
