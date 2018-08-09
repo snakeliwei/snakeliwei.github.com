@@ -16,7 +16,7 @@ preview: Docker config remote API via daemon.json issue
 unix:///var/run/docker.sock tcp://0.0.0.0:2376])`
 
 ## 解决方法：
-1. Use the command sudo systemctl edit docker.service to open an override file for docker.service in a text editor.
+1. Use the command `sudo systemctl edit docker.service` to open an override file for docker.service in a text editor.
 
 2. Add or modify the following lines, substituting your own values.
 ```
@@ -27,11 +27,11 @@ ExecStart=/usr/bin/dockerd
 3. Save the file.
 
 4. Reload the systemctl configuration.
-
 `$ sudo systemctl daemon-reload`
 
 5. Restart Docker.
 `$ sudo systemctl restart docker.service`
+
 6. Check to see whether the change was honored by reviewing the output of netstat to confirm dockerd is listening on the configured port.
 ```
 $ sudo netstat -lntp | grep dockerd
