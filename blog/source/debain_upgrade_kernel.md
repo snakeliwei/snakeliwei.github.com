@@ -61,6 +61,7 @@ p   linux-image-rt-amd64-dbg                                                - De
 Before installing a newer kernel, it’s important that we upgrade installed packages to their newer versions in the backports-repo in order to be sure that dependencies will remain unbroken.
 
 `lyndon@debian:~$ sudo apt-get -t stretch-backports upgrade`
+
 After the upgrade, choose a kernel from the list and install it with apt. Most of the installations would want the kernel without suffix. The rt-suffix stands for realtime and is mostly interesting for embedded projects or machines that will drive industrial hardware. dbg stands for debugging.
 
 ```bash
