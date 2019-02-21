@@ -10,13 +10,16 @@ preview: 使用cpulimit在linux下限制cpu使用率.
 
 ### 安装方式：
 - Build from source
+
 ```bash
 git clone https://github.com/opsengine/cpulimit.git
 cd cpulimit
 make
 cp src/cpulimit /usr/bin
 ```
+
 - Install from package manager (etc. apt,yum)
+
 ```bash
 sudo apt install cpulimit
 sudo yum install cpulimit
@@ -42,3 +45,5 @@ cpulimit -l 50 -i -v -e php-fpm
 ```
 nohup cpulimit -l 50 -e php-fpm -i -v &
 ```
+
+> Note. 这个只能作为临时方法使用，还是要找出占用高的根本原因，从根本入手解决cpu占用过高的问题
