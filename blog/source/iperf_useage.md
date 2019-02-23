@@ -62,3 +62,7 @@ Server listening on 5201
 (--reverse表示服务端发送, 客户端接收;如果不加，就是客户端发送，服务端接收 --parallel 4表示4路并发流)
 
 > issue: iperf3: error - unable to connect to server: No route to host  --- 这个错误要检查防火墙是否放行默认5201端口.
+
+> issue: iperf3: error while loading shared libraries: libiperf.so.0: cannot open shared object file: No such file or directory
+问题原因：Linux系统中找不到libiperf.so.0 库文件，导致执行iperf3 –s时提示缺少相关lib库
+解决方法：通过find /usr/local/lib/ |grep iperf查找其他服务器上是否存在该lib库文件，查询到后拷贝libiperf.so.0库文件到此台服务器/usr/local/lib/目录下
