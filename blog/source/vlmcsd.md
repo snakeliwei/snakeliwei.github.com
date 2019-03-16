@@ -77,8 +77,8 @@ github：https://github.com/Wind4/vlmcsd
 
 ## Windows 10
 
-| Operating system edition | KMS Client Setup Key | 
-| - | - |
+| Operating system edition | KMS Client Setup Key |
+| --- | --- |
 | Windows 10 Core | TX9XD-98N7V-6WMQ6-BX7FG-H8Q99 |
 | Windows 10 Core N | 3KHY7-WNT83-DGQKR-F7HPR-844BM |
 | Windows 10 Core Country Specific | PVMJN-6DFY6-9CCP6-7BKTT-D3WVR |
