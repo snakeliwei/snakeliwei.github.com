@@ -82,3 +82,5 @@ keytool -import -v -alias client -file client.cer -keystore server_trust.keystor
         </user-data-constraint>  
     </security-constraint>
 ```
+
+> Note: 客户端访问时先导入第一步生成的client.cer或client.p12，之后用浏览器访问时会要求选择证书.
