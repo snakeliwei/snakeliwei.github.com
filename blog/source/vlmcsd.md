@@ -132,7 +132,7 @@ github：https://github.com/Wind4/vlmcsd
 
 ## Windows Server 2016
 
-| Operating system edition | KMS Client Setup Key | 
+| Operating system edition | KMS Client Setup Key |
 | --- | --- |
 | Windows Server 2016 Datacenter | CB7KF-BWN84-R7R2Y-793K2-8XDDG |
 | Windows Server 2016 Standard | WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY |
@@ -251,6 +251,4 @@ github：https://github.com/Wind4/vlmcsd
 | Visio Standard 2010 | 767HD-QGMWX-8QTDB-9G3R2-KHFGJ |
 | Visio Professional 2010 | 7MCW8-VRQVK-G677T-PDJCM-Q8TCP |
 | Visio Premium 2010 | D9DWC-HPYVV-JGF4P-BTWQB-WX8BJ |
-
-
 
