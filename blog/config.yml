@@ -25,6 +25,7 @@ build:
         - "README.md"
         - "LICENSE"
         - "CNAME"
+        - "ads.txt"
     # Excuted command when use 'ink publish'
     publish: |
         git add . -A
