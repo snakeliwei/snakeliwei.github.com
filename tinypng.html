@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="python,png,img,">
+        <meta name="description" content="Use tinypng api to compress image via python">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>Use tinypng api to compress image via python</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Use tinypng api to compress image via python</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1572398400"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/python/index.html">python</a><a class="tag" href="/tag/png/index.html">png</a><a class="tag" href="/tag/img/index.html">img</a></span>
+                </section>
+                <article class="content"><h2>什么是Tinypng</h2>
+
+<p>Tinypng 网站提供在线图片压缩服务，是所有图片压缩工具中最好用的之一，但有限制：批量最多处理 20 张，且每张大小不允许超过 5M。
+但网站同时也提供了开放了免费的 API ，API 取消了每张大小的限制，只限定每个月处理 500 张图片。</p>
+
+<h2>如何使用API</h2>
+
+<ol>
+<li>在它网站上注册，获得专属的 API_KEY。</li>
+
+<li><p>然后是安装 package：</p>
+
+<pre><code>pip install --upgrade tinify
+</code></pre></li>
+
+<li><p>接着上代码:</p>
+
+<pre><code>import tinify
+import os
+
+tinify.key = 'api_key'
+path = &quot;d:\\images\\photo&quot; # 图片存放的路径
+
+for dirpath, dirs, files in os.walk(path):
+for file in files:
+    imgpath = os.path.join(dirpath, file)
+    print(&quot;compressing ...&quot;+ imgpath)
+    tinify.from_file(imgpath).to_file(imgpath)
+</code></pre></li>
+</ol>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    
+                    <section class="nav next">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/wsl2_mem.html">WSL 2 consumes massive amounts of RAM</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

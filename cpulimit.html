@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="cpulimit,linux,">
+        <meta name="description" content="Limit cpu usage on linux">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>Limit cpu usage on linux</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Limit cpu usage on linux</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1551430800"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/cpulimit/index.html">cpulimit</a><a class="tag" href="/tag/linux/index.html">linux</a></span>
+                </section>
+                <article class="content"><h2>使用systemd限制cpu占用</h2>
+
+<blockquote>
+<p>在基于 Linux-3.x 内核版本的很多发行版都提供了 Systemd 来管理系统和服务。同时也将 cgroup 功能加到了 slice, scope 和 service 三个单元中, 基于这些特性我们可以很方便的通过 systemd 来限制服务或者进程对系统资源的使用, 这在单主机多服务的场景下会很有用。下面则以 MySQL 服务为例介绍如何使用 systemd 限制资源的使用, 其它服务的限制和此等同。</p>
+</blockquote>
+
+<pre><code class="language-bash"># systemctl set-property mysql.service MemoryLimit=5G       # 5G 内存
+# systemctl set-property mysql.service CPUQuota=150%        # 150% cpu 使用率
+# systemctl set-property mysql.service BlockIOWeight=1000   # IO 权重
+</code></pre>
+
+<h2>使用cpulimit程序限制cpu占用</h2>
+
+<blockquote>
+<p>对于没用使用Systemd来管理的发行版可用cpulimit这个程序来实现cpu占用的限制。</p>
+</blockquote>
+
+<h3>安装方式：</h3>
+
+<ul>
+<li>Build from source</li>
+</ul>
+
+<pre><code class="language-bash">git clone https://github.com/opsengine/cpulimit.git
+cd cpulimit
+make
+cp src/cpulimit /usr/bin
+</code></pre>
+
+<ul>
+<li>Install from package manager (etc. apt,yum)</li>
+</ul>
+
+<pre><code class="language-bash">sudo apt install cpulimit
+sudo yum install cpulimit
+</code></pre>
+
+<h3>使用方法：</h3>
+
+<p>输入cpulimit，查看使用方式</p>
+
+<h4>选项:</h4>
+
+<ul>
+<li>-l 0~400 限定CPU占据率0%~400%</li>
+<li>-v 显现控制的统计信息</li>
+<li>-z 当被控制的程式退出的时候，CPULimit程式也跟着退出</li>
+<li>-i 同时限定被控程式的子进程</li>
+<li>-p 被控程式的PID</li>
+<li>-e 被控程式的程式称号</li>
+</ul>
+
+<p>举例，譬如要限定php-fpm进程的CPU使用率最高为50%，并显现控制信息</p>
+
+<pre><code>cpulimit -l 50 -i -v -e php-fpm
+</code></pre>
+
+<p>依据需要挑选能否进入 -z 参数</p>
+
+<p>如果需要后台执行，只需要在command前后进入<code>nohup……&amp;</code>，回车便可</p>
+
+<pre><code>nohup cpulimit -l 50 -e php-fpm -i -v &amp;
+</code></pre>
+
+<blockquote>
+<p>Note. 这个只能作为临时方法使用，还是要找出占用高的根本原因，从根本入手解决cpu占用过高的问题</p>
+</blockquote>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/iperf_useage.html">Use iperf to test Lan speeds...</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/bash_error.html">bash ‘/bin/sh: Syntax error: “(” unexpected</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="Ansible,Study,">
+        <meta name="description" content="Ansible study note 00x01">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>Ansible study note 00x01</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Ansible study note 00x01</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1468254619"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/Ansible/index.html">Ansible</a><a class="tag" href="/tag/Study/index.html">Study</a></span>
+                </section>
+                <article class="content"><blockquote>
+<p>为了更好的学习自动化运维，就必须学习配置管理工具，Ansible 比较好入门所以从它开始</p>
+</blockquote>
+
+<h2>安装和配置</h2>
+
+<h3>安装</h3>
+
+<pre><code class="language-bash">sudo pip install ansible
+</code></pre>
+
+<p>创建并编辑ansible的hosts文件，内容为已经配置ssh免密码登录的远程主机的地址。
+/etc/ansible/hosts是默认路径</p>
+
+<pre><code class="language-bash">sudo mkdir /etc/ansible
+sudo vi /etc/ansible/hosts
+</code></pre>
+
+<p>内容为INI格式：</p>
+
+<pre><code class="language-ini">192.168.1.134
+192.168.1.136
+</code></pre>
+
+<p>也可以进行分组，同一个机器可以在不同分组</p>
+
+<pre><code class="language-ini">[v1]
+192.168.1.134
+
+[v2]
+192.168.1.136
+</code></pre>
+
+<p>如果远程的ssh端口修改了不在22标准端口，文件内容中机器地址应该明确指定端口号如：<code>192.168.1.134:2222</code></p>
+
+<p>配置ssh免密码登录远程主机：</p>
+
+<p>当前用户名与远程机器上相同，ssh key在默认位置</p>
+
+<pre><code class="language-bash">ssh-copy-id 192.168.1.136
+ssh-copy-id 192.168.1.134
+</code></pre>
+
+<p>避免重复输入密钥的短语密码：</p>
+
+<pre><code class="language-bash">ssh-add ~/.ssh/id_rsa
+</code></pre>
+
+<p>在本地测试是否能够ping通：</p>
+
+<p>ping全部机器</p>
+
+<pre><code class="language-bash">ansible all -m ping
+</code></pre>
+
+<p>以ashin用户身份ping .134</p>
+
+<pre><code class="language-bash">ansible 192.168.1.134 -m ping -u ashin
+</code></pre>
+
+<p>以用户ashin身份使用sudo来ping v1 (.134) -K是输入root密码</p>
+
+<pre><code class="language-bash">ansible v1 -m ping -u ashin --sudo -K
+</code></pre>
+
+<h3>配置</h3>
+
+<p>配置文件可以从多个地方加载，其优先级顺序为：</p>
+
+<pre><code>ANSIBLE_CONFIG (环境变量)
+ansible.cfg (当前目录)
+.ansible.cfg (home目录)
+/etc/ansible/ansible.cfg
+</code></pre>
+
+<p>定义自己的配置文件可以参考<a href="https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg">https://raw.githubusercontent.com/ansible/ansible/devel/examples/ansible.cfg</a></p>
+
+<p>ssh检查key是通过paramiko进行的，很慢。 不检查host key配置：</p>
+
+<pre><code class="language-bash">sudo vi etc/ansible/ansible.cfg or ~/.ansible.cfg
+</code></pre>
+
+<p>内容为：</p>
+
+<pre><code class="language-ini">[defaults]
+host_key_checking = False
+</code></pre>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/nginx_https.html">使用自签证书部署HTTPS</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/openssl-error.html">fatal error: openssl/opensslv.h: No such file or directory</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="Docker,linux,Study,">
+        <meta name="description" content="After Docker Install">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>After Docker Install</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">After Docker Install</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1488468831"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/Docker/index.html">Docker</a><a class="tag" href="/tag/linux/index.html">linux</a><a class="tag" href="/tag/Study/index.html">Study</a></span>
+                </section>
+                <article class="content"><blockquote>
+<p>在docker安装完毕后，需要进行必要的设置以便更好的为我们服务</p>
+</blockquote>
+
+<h2>安装Docker</h2>
+
+<p>推荐使用阿里云的国内源进行安装，原因你们知道的GFW，另外就是很快很方便<a href="http://mirrors.aliyun.com/help/docker-engine">传送门</a></p>
+
+<h2>消除&rdquo;WARNING: No swap limit support&rdquo;</h2>
+
+<p>这个默认官方给予解决方法了:<a href="https://docs.docker.com/engine/installation/linux/ubuntu/">链接</a></p>
+
+<pre><code>When users run Docker, they may see these messages when working with an image:
+
+WARNING: Your kernel does not support cgroup swap limit. WARNING: Your
+kernel does not support swap limit capabilities. Limitation discarded.
+To prevent these messages, enable memory and swap accounting on your system. To enable these on system using GNU GRUB (GNU GRand Unified Bootloader), do the following.
+
+Log into Ubuntu as a user with sudo privileges.
+
+Edit the /etc/default/grub file.
+
+Set the GRUB_CMDLINE_LINUX value as follows:
+
+GRUB_CMDLINE_LINUX=&quot;cgroup_enable=memory swapaccount=1&quot;
+Save and close the file.
+
+Update GRUB.
+
+$ sudo update-grub
+Reboot your system.
+</code></pre>
+
+<h2>配置加速器，使用overlay2，启用Live Restore</h2>
+
+<p>以ubuntu为例，其他发行版请自行查看<a href="https://docs.docker.com">官方文档</a>
+&gt; 使用overlay需要内核版本在3.18以上，并且在内核中已启用<a href="http://snakeliwei.github.io/2015/12/03/Docker-overlay/">传送门</a>。启用Live Restore后在更新docker daemon时不影响已启动的容器。</p>
+
+<ul>
+<li>Docker客户端版本大于1.10的用户
+修改daemon配置文件/etc/docker/daemon.json：</li>
+</ul>
+
+<pre><code class="language-bash">sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-'EOF'
+{
+  &quot;registry-mirrors&quot;: [&quot;https://knb1nxmo.mirror.aliyuncs.com&quot;],
+  &quot;storage-driver&quot;: &quot;overlay2&quot;, //使用第二版驱动
+  &quot;live-restore&quot;: true
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+</code></pre>
+
+<ul>
+<li>Docker客户的版本小于等于1.10的用户或者想配置启动参数，可以使用下面的命令将配置添加到docker daemon的启动参数中。</li>
+</ul>
+
+<ol>
+<li>Ubuntu 12.04 14.04的用户</li>
+</ol>
+
+<pre><code class="language-bash">echo &quot;DOCKER_OPTS=\&quot;\$DOCKER_OPTS --registry-mirror=https://knb1nxmo.mirror.aliyuncs.com -s overlay --live-restore=true \&quot;&quot; | sudo tee -a /etc/default/docker
+sudo service docker restart
+</code></pre>
+
+<ol>
+<li>Ubuntu 15.04 16.04的用户</li>
+</ol>
+
+<pre><code class="language-bash">sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo tee /etc/systemd/system/docker.service.d/mirror.conf &lt;&lt;-'EOF'
+[Service]
+ExecStart=/usr/bin/docker daemon -H fd:// --registry-mirror=https://knb1nxmo.mirror.aliyuncs.com -s overlay --live-restore=true
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+</code></pre>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/openssh_config_for_mac12.html">OpenSSH config for mac 10.12.2</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/ssh-keygen.html">SSH 密钥类型的的选择（RSA， DSA or Other</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

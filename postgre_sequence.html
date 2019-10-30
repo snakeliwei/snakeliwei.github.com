@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="Postgre,Study,">
+        <meta name="description" content="Postgre sequence">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>Postgre sequence</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Postgre sequence</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1456497379"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/Postgre/index.html">Postgre</a><a class="tag" href="/tag/Study/index.html">Study</a></span>
+                </section>
+                <article class="content"><p>sequence 是一种特殊的数据库对象，用来产生独一无二的数字ID。Postgres中有一种数据类型serial，和sequence对应:
+<img src="data:image/gif;base64,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" data-src="http://blog.chinaunix.net/attachment/201311/2/24774106_1383400523Gg17.png" alt="sequence1" /></p>
+
+<p>如果我们插入一笔记录，我们希望系统自动为我们分配一个ID，那么我们需要使用serial type。如果我们创建表的时候，自动创建一个serial类型（包smallserial and bigserial），系统会自动帮我们创建sequence这种数据库对象。</p>
+
+<pre><code class="language-sql">create table employ(
+      id serial,
+      name varchar(64),
+      department varchar(64)
+) ;
+
+manu_db=# create table employ(id serial,name varchar(64),department varchar(128)) ;
+NOTICE:  CREATE TABLE will create implicit sequence &quot;employ_id_seq&quot; for serial column &quot;employ.id&quot;
+CREATE TABLE
+manu_db=# \d
+             List of relations
+ Schema |     Name      |   Type   | Owner 
+--------+---------------+----------+-------
+ public | employ        | table    | manu
+ public | employ_id_seq | sequence | manu
+(2 rows)
+manu_db-# \d employ
+                                   Table &quot;public.employ&quot;
+   Column   |          Type          |                      Modifiers                      
+------------+------------------------+-----------------------------------------------------
+ id         | integer                | not null default nextval('employ_id_seq'::regclass)
+ name       | character varying(64)  | 
+ department | character varying(128) | 
+</code></pre>
+
+<p>我们看到，postgres自动帮助我们创建了一个sequence，命名原则是 tablename_columnname_seq.
+下面这两条SQL，本质是相等：</p>
+
+<pre><code class="language-sql">CREATE TABLE employ (
+      id serial,
+      name varchar(64),
+      department varchar(64)
+) ;
+</code></pre>
+
+<pre><code class="language-sql">CREATE SEQUENCE employ_id_seq ;
+CREATE TABLE employ (
+     id integer NOT NULL DEFAULT nextval('employ_id_seq'),
+     name varchar(64),
+     department varchar(64)
+);
+
+ALTER SEQUENCE employ_id_seq OWNED by employ.id;
+</code></pre>
+
+<p>我们看到，我们用了integer数据类型和serial对应起来，默认用nextal（‘employ_id_seq’）给integer类型的id赋值，那是因为integer范围要比serial的范围大，这样做是安全的。对于bigserial，我们应该用bigint类型，对于smallserial应该何smallint对应。
+<img src="data:image/gif;base64,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" data-src="http://blog.chinaunix.net/attachment/201311/2/24774106_1383403462iqY7.png" alt="sequence2" /><br />
+我们建立数据表和sequence的对应关系，常规的就是这两种方法，要么创建表的时候，某字段是serial类型，要么创建先创建sequence，然后创建表的时候，将某字段和sequence 联系起来（DEFAULT nextvl（‘XXXX_seq’））,有没有第三种方法？假如创建表的时候，没有用DEFAULT nextval建立起来联系，还有没有机会在后面建立这种联系？我为什么纠结这个？</p>
+
+<pre><code class="language-sql">manu_db=# create table employ_copy (like  employ) ;
+CREATE TABLE
+manu_db=# \d employ_copy 
+           Table &quot;public.employ_copy&quot;
+   Column   |          Type          | Modifiers 
+------------+------------------------+-----------
+ id         | integer                | not null
+ name       | character varying(64)  | 
+ department | character varying(128) | 
+
+
+manu_db=# \d employ
+                                   Table &quot;public.employ&quot;
+   Column   |          Type          |                      Modifiers                      
+------------+------------------------+-----------------------------------------------------
+ id         | integer                | not null default nextval('employ_id_seq'::regclass)
+ name       | character varying(64)  | 
+ department | character varying(128) | 
+
+
+manu_db=# 
+</code></pre>
+
+<p>如果业务需要，创建一个schema和employ一模一样的table，我们只能够用like，但是，我们看到，id这个字段并不完全一样，原因就是没有sequence和新建的table对应。这种情况，我们有没有办法，事后创建sequence，建立table中id字段的联系， I mean  id use nextval as default？
+答案是肯定的：</p>
+
+<pre><code class="language-sql">CREATE SEQUENCE employ_copy_id_seq ;
+ALTER TABLE employ_copy ALTER COLUMN id SET DEFAULT nextval('employ_copy_id_seq');
+ALTER SEQUENCE employ_copy_id_seq  OWNED by employ_copy.id ;
+</code></pre>
+
+<pre><code>看看效果：  
+</code></pre>
+
+<pre><code class="language-sql">manu_db=# CREATE SEQUENCE employ_copy_id_seq ;
+CREATE SEQUENCE
+manu_db=# ALTER TABLE employ_copy ALTER COLUMN id SET DEFAULT nextval('employ_copy_id_seq');
+ALTER TABLE
+manu_db=# \d employ_copy
+                                   Table &quot;public.employ_copy&quot;
+   Column   |          Type          |                        Modifiers                         
+------------+------------------------+----------------------------------------------------------
+ id         | integer                | not null default nextval('employ_copy_id_seq'::regclass)
+ name       | character varying(64)  | 
+ department | character varying(128) | 
+</code></pre>
+
+<p>注意，加了alter sequence owned by ,在删除table的时候，会自动的将sequence删掉。如果不建立这种owned by的关系，删除table，不会引发sequence被删除。我就不贴了，可以自己try。</p>
+
+<p>当我们向Postgres插入一笔记录的时候，我们不需要费力告诉DB id的值，因为DB会自动分配一个数值给id：</p>
+
+<pre><code class="language-sql">manu_db=# insert into  employ (name,department) values('bean', 'DDI');
+INSERT 0 1
+manu_db=# insert into  employ (name,department) values('albert', 'DDI');
+INSERT 0 1
+manu_db=# select * from employ ;
+ id |  name  | department 
+----+--------+------------
+  1 | bean   | DDI
+  2 | albert | DDI
+(2 rows)
+</code></pre>
+
+<p>我们可以用currval 和 nextval取到sequence的当前值和下一个值。注意，currval是不会改变sequence的，但是nextval一旦使用，下个数字就被消耗掉了，哪怕你并没有真正的用于你的table。</p>
+
+<pre><code class="language-sql">manu_db=# select currval('employ_id_seq');
+ currval 
+---------
+       2
+(1 row)
+
+manu_db=# select nextval('employ_id_seq');
+ nextval 
+---------
+       3
+(1 row)
+
+manu_db=# select nextval('employ_id_seq');
+ nextval 
+---------
+       4
+(1 row)
+</code></pre>
+
+<p>使用setval可以设置下一个当前值，下一次就会从你设置的这个值开始递增：</p>
+
+<pre><code class="language-sql">manu_db=# select setval('employ_id_seq',100);
+ setval 
+--------
+    100
+(1 row)
+
+manu_db=# select currval('employ_id_seq');
+ currval 
+---------
+     100
+(1 row)
+
+manu_db=# select nextval('employ_id_seq');
+ nextval 
+---------
+     101
+(1 row)
+</code></pre>
+
+<hr />
+
+<h3>快速修改id的自增起始数为当前最大的id</h3>
+
+<ul>
+<li>使用语句: <code>select setval('your_table_id_seq',(select max(id) from &lt;tablename&gt;));</code></li>
+<li>如何查看: <code>your_table_id_seq?</code></li>
+<li>使用命令: <code>\d &lt;tablename&gt;</code></li>
+</ul>
+
+<blockquote>
+<p>转载自<a href="http://blog.chinaunix.net/uid-24774106-id-3973781.html">Bean_lee &rsquo;s PostgreSQL之sequence</a></p>
+</blockquote>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/gitnopass.html">Git https push&amp;pull with no password</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/ubuntu-update-kernel.html">Ubuntu upgrade kernel to v4</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

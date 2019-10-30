@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="windows,service,tips,">
+        <meta name="description" content="Run an exe app as service on win os">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>Run an exe app as service on win os</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Run an exe app as service on win os</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1554368400"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/windows/index.html">windows</a><a class="tag" href="/tag/service/index.html">service</a><a class="tag" href="/tag/tips/index.html">tips</a></span>
+                </section>
+                <article class="content"><blockquote>
+<p>项目服务用java写的，跑在console下非常不安全，如遇意外挂掉没法自动拉起。需要类似superviser的守护软件管理起来，
+<a href="http://www.nssm.cc">NSSM</a>就是这类在win下将普通程序运行成后台程序的软件</p>
+</blockquote>
+
+<h2>服务安装：</h2>
+
+<p>服务安装可以使用如下命令： <code>nssm install &lt;servicename&gt;</code></p>
+
+<p>执行此命令后，会出现一个界面，基本上看着就知道怎么用了，大多数情况下，只需要填第一个界面的程序路径就可以了。</p>
+
+<p>其它界面的是高级参数的配置，可以根据需要自行选择。</p>
+
+<p>参数填完后执行&rdquo;install service&rdquo;按钮即可将服务安装到系统，可以使用系统的服务管理工具查看了。</p>
+
+<p>当然，如果要自动化安装，可以直接带上程序路径： <code>nssm install &lt;servicename&gt; &lt;program&gt; [&lt;arguments&gt;]</code></p>
+
+<p>NSSM本身win7及以上的系统基本都是支持的，我测试过win7，2008,2016系统，都是没有问题的，如果安装失败，请首先检查是否装了某国产管家或国产杀毒软件。</p>
+
+<p>安装完成后，服务还没有启动，需要通过下面的服务管理的命令启动服务。</p>
+
+<p>服务管理：</p>
+
+<p>服务管理主要有启动、停止和重启，其命令如下：</p>
+
+<p>启动服务：　nssm start <servicename>
+停止服务： nssm stop <servicename>
+重启服务:    nssm restart <servicename>
+当然，也可以使用系统自带的服务管理器操作和使用系统的命令。</p>
+
+<p>修改参数：</p>
+
+<p>NSSM安装的服务修改起来非常方便，命令如下：</p>
+
+<p><code>nssm edit &lt;servicename&gt;</code></p>
+
+<p>会自动启动操作界面，直接更改即可。</p>
+
+<h2>服务删除：</h2>
+
+<p>服务删除可以使用如下命令之一：</p>
+
+<pre><code class="language-bash">nssm remove &lt;servicename&gt;
+nssm remove &lt;servicename&gt; confirm
+</code></pre>
+
+<p>功能没有大的区别，后面的命令是自动确认的，没有交互界面。</p>
+
+<h2>命令行：</h2>
+
+<p>服务自动化需要使用更多的命令行，具体参看官方文档： Managing services from the command line
+如下是一个安装Jenkins服务的示例：</p>
+
+<pre><code class="language-bash">nssm install Jenkins %PROGRAMFILES%\Java\jre7\bin\java.exe
+nssm set Jenkins AppParameters -jar slave.jar -jnlpUrl https://jenkins/computer/%COMPUTERNAME%/slave-agent.jnlp -secret redacted
+nssm set Jenkins AppDirectory C:\Jenkins
+nssm set Jenkins AppStdout C:\Jenkins\jenkins.log
+nssm set Jenkins AppStderr C:\Jenkins\jenkins.log
+nssm set Jenkins AppStopMethodSkip 6
+nssm set Jenkins AppStopMethodConsole 1000
+nssm set Jenkins AppThrottle 5000
+nssm start Jenkins
+</code></pre>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/hash_windows.html">Hash cmd on win</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/mount_efi.html">Mount the EFI partition on win 10</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

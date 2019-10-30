@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Lyndon Li&#39;s Blog</title>
+  <id>https://blog.lyndon.pw</id>
+  <updated>2019-10-30T01:33:54Z</updated>
+  <subtitle>From tester to Full-stack</subtitle>
+  <link href="https://blog.lyndon.pw"></link>
+  <author>
+    <name>Lyndon Li&#39;s Blog</name>
+  </author>
+  <entry>
+    <title>Use tinypng api to compress image via python</title>
+    <updated>2019-10-30T09:20:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-10-30:/tinypng.html</id>
+    <link href="https://blog.lyndon.pw/tinypng.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;写了一个适用tingpng api 批量压缩图片的脚本只用了几行, 真是快艹猛。&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>WSL 2 consumes massive amounts of RAM</title>
+    <updated>2019-10-17T13:00:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-10-17:/wsl2_mem.html</id>
+    <link href="https://blog.lyndon.pw/wsl2_mem.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;wsl2出现Vmmem内存占用过大问题解决方法。&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>VMware Workstation 15 Pro active key</title>
+    <updated>2019-07-29T12:00:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-07-29:/vmware15key.html</id>
+    <link href="https://blog.lyndon.pw/vmware15key.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;.&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Hash cmd on win</title>
+    <updated>2019-07-05T17:00:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-07-05:/hash_windows.html</id>
+    <link href="https://blog.lyndon.pw/hash_windows.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;win下的hash命令。&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Run an exe app as service on win os</title>
+    <updated>2019-04-04T17:00:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-04-04:/nssm.html</id>
+    <link href="https://blog.lyndon.pw/nssm.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;win10下挂将exe应用运行成后台服务&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Mount the EFI partition on win 10</title>
+    <updated>2019-04-02T17:00:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-04-02:/mount_efi.html</id>
+    <link href="https://blog.lyndon.pw/mount_efi.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;win10下挂载EFI分区&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Mysql Error-could not open single-table tablespace file</title>
+    <updated>2019-03-29T12:00:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-03-29:/mysql_file_error.html</id>
+    <link href="https://blog.lyndon.pw/mysql_file_error.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;一次mysql重启错误的解决.&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Tomcat9 http/2 configration and client authentication</title>
+    <updated>2019-03-24T17:00:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-03-24:/tomcat_http2.html</id>
+    <link href="https://blog.lyndon.pw/tomcat_http2.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;Tomcat9下配置HTTP/2和客户端认证&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Active win$ &amp; office with vlmcsd</title>
+    <updated>2019-03-16T17:00:00+08:00</updated>
+    <id>tag:blog.lyndon.pw,2019-03-16:/vlmcsd.html</id>
+    <link href="https://blog.lyndon.pw/vlmcsd.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;基于vlmcsd搭建的KMS服务器。KMS Emulator in C (currently runs on Linux including Android, FreeBSD, Solaris, Minix, Mac OS, iOS, Windows with or without Cygwin)&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+  <entry>
+    <title>root删不掉的.user.ini文件</title>
+    <updated>2019-03-01T16:13:51Z</updated>
+    <id>tag:blog.lyndon.pw,2019-03-01:/userinidelete.html</id>
+    <link href="https://blog.lyndon.pw/userinidelete.html" rel="alternate"></link>
+    <summary type="html">&lt;p&gt;PHP项目里有个神秘的.user.ini文件，用root都删不掉.&lt;/p&gt;&#xA;</summary>
+    <author>
+      <name>Lyndon</name>
+    </author>
+  </entry>
+</feed>

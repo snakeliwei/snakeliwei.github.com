@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="iperf,linux,">
+        <meta name="description" content="Use iperf to test Lan speeds...">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>Use iperf to test Lan speeds...</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Use iperf to test Lan speeds...</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1550924031"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/iperf/index.html">iperf</a><a class="tag" href="/tag/linux/index.html">linux</a></span>
+                </section>
+                <article class="content"><h3>安装方式：</h3>
+
+<ul>
+<li>Build from source</li>
+</ul>
+
+<pre><code class="language-bash">[root@localhost]# curl -SOL https://github.com/esnet/iperf/archive/3.6.tar.gz
+[root@localhost]# tar -xvf 3.6.tar.gz
+[root@localhost]# cd 3.6 &amp;&amp; ./configure
+[root@localhost]# make
+[root@localhost]# make install
+</code></pre>
+
+<ul>
+<li>Install from package manager (etc. apt,yum)</li>
+</ul>
+
+<pre><code class="language-bash">sudo apt install iperf3
+sudo yum install iperf3
+</code></pre>
+
+<h3>使用方法：</h3>
+
+<ul>
+<li><p>参数说明
+-s 以server模式启动，eg：iperf -s
+-c host以client模式启动，host是server端地址，eg：iperf -c 222.35.11.23</p></li>
+
+<li><p>通用参数
+-f [kmKM] 分别表示以Kbits, Mbits, KBytes, MBytes显示报告，默认以Mbits为单位,eg：<code>iperf -c 222.35.11.23 -f K</code>
+-i sec 以秒为单位显示报告间隔，eg：<code>iperf -c 222.35.11.23 -i 2</code>
+-l 缓冲区大小，默认是8KB,eg：iperf -c 222.35.11.23 -l 16
+-m 显示tcp最大mtu值
+-o 将报告和错误信息输出到文件 eg：<code>iperf -c 222.35.11.23 -o ciperflog.txt</code>
+-p 指定服务器端使用的端口或客户端所连接的端口eg：<code>iperf -s -p 9999;iperf -c 222.35.11.23 -p 9999</code>
+-u 使用udp协议
+-w 指定TCP窗口大小，默认是8KB
+-B 绑定一个主机地址或接口（当主机有多个地址或接口时使用该参数）
+-C 兼容旧版本（当server端和client端版本不一样时使用）
+-M 设定TCP数据包的最大mtu值
+-N 设定TCP不延时
+-V 传输ipv6数据包</p></li>
+</ul>
+
+<h3>实例：</h3>
+
+<ul>
+<li><p>服务端</p>
+
+<pre><code>[root@localhost bin]# iperf3 -s
+-----------------------------------------------------------
+Server listening on 5201
+-----------------------------------------------------------
+</code></pre></li>
+
+<li><p>客户端:</p>
+
+<pre><code>[root@localhost iperf-3.0.5]# iperf3 -c 192.168.0.1 --reverse --parallel 4
+</code></pre>
+
+<p>(192.168.0.1 服务器的IP地址，可设置为推流网卡IP)
+(&ndash;reverse表示服务端发送, 客户端接收;如果不加，就是客户端发送，服务端接收 &ndash;parallel 4表示4路并发流)</p></li>
+</ul>
+
+<blockquote>
+<p>issue: iperf3: error - unable to connect to server: No route to host  &mdash; 这个错误要检查防火墙是否放行默认5201端口.</p>
+
+<p>issue: iperf3: error while loading shared libraries: libiperf.so.0: cannot open shared object file: No such file or directory
+问题原因：Linux系统中找不到libiperf.so.0 库文件，导致执行iperf3 –s时提示缺少相关lib库
+解决方法：通过find /usr/local/lib/ |grep iperf查找其他服务器上是否存在该lib库文件，查询到后拷贝libiperf.so.0库文件到此台服务器/usr/local/lib/目录下</p>
+</blockquote>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/userinidelete.html">root删不掉的.user.ini文件</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/cpulimit.html">Limit cpu usage on linux</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

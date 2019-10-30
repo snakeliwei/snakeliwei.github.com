@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="设计,写作,">
+        <meta name="description" content="使用Travis-ci和纸小墨（InkPaper）部署GithubPage">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>使用Travis-ci和纸小墨（InkPaper）部署GithubPage</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">使用Travis-ci和纸小墨（InkPaper）部署GithubPage</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1468227600"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e8%ae%be%e8%ae%a1/index.html">设计</a><a class="tag" href="/tag/%e5%86%99%e4%bd%9c/index.html">写作</a></span>
+                </section>
+                <article class="content"><h2>纸小墨简介</h2>
+
+<p>纸小墨（InkPaper）是一个GO语言编写的开源静态博客构建工具，可以快速搭建博客网站。它无依赖跨平台，配置简单构建快速，注重简洁易用与更优雅的排版。</p>
+
+<h3>开始上手</h3>
+
+<ul>
+<li>下载并解压 <a href="http://www.chole.io/">Ink</a>，运行命令 <code>ink preview</code></li>
+</ul>
+
+<blockquote>
+<p>注意：Linux/macOS下，使用 <code>./ink preview</code></p>
+</blockquote>
+
+<ul>
+<li>使用浏览器访问 <code>http://localhost:8000</code> 预览。</li>
+</ul>
+
+<h3>特性介绍</h3>
+
+<ul>
+<li>YAML格式的配置</li>
+<li>Markdown格式的文章</li>
+<li>无依赖跨平台</li>
+<li>超快的构建速度</li>
+<li>不断改善的主题与排版</li>
+<li>多文章作者支持</li>
+<li>归档与标签自动生成</li>
+<li>保存时实时预览页面</li>
+<li>离线的全文关键字搜索</li>
+</ul>
+
+<h3>配置网站</h3>
+
+<p>编辑<code>config.yml</code>，使用如下格式：</p>
+
+<pre><code class="language-yaml">site:
+    title: 网站标题
+    subtitle: 网站子标题
+    limit: 每页可显示的文章数目
+    theme: 网站主题目录
+    comment: 评论插件变量(默认为Disqus账户名)
+    root: 网站根路径 #可选
+    lang: 网站语言 #支持en, zh, ru, ja，可在theme/config.yml配置
+    url: 网站链接 #用于RSS生成
+    link: 文章链接形式 #默认为{title}.html，支持{year},{month},{day},{title}变量
+
+authors:
+    作者ID:
+        name: 作者名称
+        intro: 作者简介
+        avatar: 作者头像路径
+
+build:
+    output: 构建输出目录 #可选, 默认为 &quot;public&quot;
+    port: 预览端口
+    copy:
+        - 构建时将会复制的目录/文件
+    publish: |
+        ink publish 命令将会执行的脚本
+</code></pre>
+
+<h3>创建文章</h3>
+
+<p>在<code>source</code>目录中建立任意<code>.md</code>文件（可置于子文件夹），使用如下格式：</p>
+
+<pre><code class="language-yaml">title: 文章标题
+date: 年-月-日 时:分:秒 #创建时间，可加时区如&quot; +0800&quot;
+update: 年-月-日 时:分:秒 #更新时间，可选，可加时区如&quot; +0800&quot;
+author: 作者ID
+cover: 题图链接 #可选
+draft: false #草稿，可选
+top: false #置顶文章，可选
+preview: 文章预览，也可在正文中使用&lt;!--more--&gt;分割 #可选
+tags: #可选
+    - 标签1
+    - 标签2
+type: post #指定类型为文章(post)或页面(page)，可选
+hide: false #隐藏文章，只可通过链接访问，可选
+
+---
+
+Markdown格式的正文
+</code></pre>
+
+<h3>发布博客</h3>
+
+<ul>
+<li>在博客目录下运行<code>ink publish</code>命令自动构建博客并发布。</li>
+<li>或运行<code>ink build</code>命令将生成的<code>public</code>目录下的内容手动部署。</li>
+</ul>
+
+<blockquote>
+<p>Tips: 在使用<code>ink preview</code>命令时，编辑保存文件后，博客会自动重新构建并刷新浏览器页面。</p>
+</blockquote>
+
+<h2>定制支持</h2>
+
+<h3>修改主题</h3>
+
+<p>默认主题在<code>theme</code>目录下，修改源代码后在该目录下运行<code>npm install</code>与<code>npm run build</code>重新构建。</p>
+
+<p>页面包含<code>page.html</code>（文章列表）及<code>article.html</code>（文章）等，所有页面均支持<a href="http://golang.org/pkg/html/template/">GO语言HTML模板</a>语法，可引用变量。</p>
+
+<h3>添加页面</h3>
+
+<p>在<code>source</code>目录下创建的任意<code>.html</code>文件将被复制，这些文件中可引用<code>config.yml</code>中site字段下的所有变量。</p>
+
+<h3>博客迁移(Beta)</h3>
+
+<p>纸小墨提供简单的Jeklly/Hexo博客文章格式转换，使用命令：</p>
+
+<pre><code class="language-shell">ink convert /path/_posts
+</code></pre>
+
+<h3>源码编译</h3>
+
+<p>本地运行</p>
+
+<ol>
+<li>配置<a href="http://golang.org/doc/install">GO</a>语言环境。</li>
+<li>运行命令<code>go get github.com/InkProject/ink</code>，编译并获取ink。</li>
+<li>运行命令<code>ink preview $GOPATH/src/github.com/InkProject/ink/template</code>，预览博客。</li>
+</ol>
+
+<p>Docker构建（示例）</p>
+
+<ol>
+<li>Clone源码 <code>git clone git@github.com:InkProject/ink.git</code>。</li>
+<li>源码目录下构建镜像<code>docker build -t ink .</code>。</li>
+<li>运行容器<code>docker run -p 8000:80 ink</code>。</li>
+</ol>
+
+<h2>主题</h2>
+
+<ul>
+<li>Dark(Official Theme): <a href="https://github.com/InkProject/ink-theme-dark">https://github.com/InkProject/ink-theme-dark</a></li>
+<li>simple: <a href="https://github.com/myiq/ink-simple">https://github.com/myiq/ink-simple</a></li>
+</ul>
+
+<h2>使用Travis-ci来自动部署GithubPage</h2>
+
+<h3>建立Github Page仓库</h3>
+
+<ul>
+<li>在Github上建立名为<code>yourname.github.com</code>的仓库</li>
+</ul>
+
+<blockquote>
+<p>用该名字建立的仓库可用用<code>yourname.github.io</code>域名直接访问生成的博客页面。</p>
+</blockquote>
+
+<ul>
+<li><p>将纸小墨的源码push到非master分支上，我使用的是名为blog-src的分支。</p></li>
+
+<li><p>在源码根目录新建<code>.travis.yml</code>文件，填入下列内容并push到github上：</p></li>
+</ul>
+
+<pre><code class="language-yaml">language: go
+
+install:
+  - go get github.com/InkProject/ink
+  - ink build
+
+script:
+  - cd ./blog/public/
+  - git init
+  - git config user.name &quot;yourname&quot;
+  - git config user.email &quot;yourname@gmail.com&quot;
+  - git add .
+  - git commit -m &quot;update blogs&quot;
+  - git push --force --quiet &quot;https://${GH_TOKEN}@${GH_REF}&quot; master:master
+
+branches:
+  only:
+    - blog-src
+env:
+  global:
+    - GH_REF: github.com/yourname/yourname.github.com
+</code></pre>
+
+<h3>在Travis-ci.org上进行相关设置</h3>
+
+<ul>
+<li><p>用你的 GitHub 账号登录 Travis CI。</p></li>
+
+<li><p>登录之后，请转到您的配置页，并为你想要构建的仓库启用 Travis CI 。</p></li>
+
+<li><p>在 Travis CI 里为对应的仓库添加 Github Access Token，用于后续使用 GitHub API. 这样 Travis CI 可以将通过 InkPaper 生成的静态博客源文件推送到 GitHub Pages 分支。</p></li>
+</ul>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/test-to-full-stack.html">Test to Full-stack</a>
+                    </section>
+                    
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

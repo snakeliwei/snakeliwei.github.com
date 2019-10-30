@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lyndon Li&#39;s Blog">
+<meta name="twitter:description" content="From tester to Full-stack">
+<meta name="twitter:image:src" content="https://blog.lyndon.pw/images/avatar.png">
+
+<meta property="og:url" content="https://blog.lyndon.pw">
+<meta property="og:title" content="Lyndon Li&#39;s Blog">
+<meta property="og:description" content="From tester to Full-stack">
+<meta property="og:site_name" content="Lyndon Li&#39;s Blog">
+<meta property="og:image" content="https://blog.lyndon.pw/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Lyndon Li&#39;s Blog">
+<meta itemprop="description" content="From tester to Full-stack">
+<meta itemprop="image" content="https://blog.lyndon.pw/images/avatar.png">
+
+<link rel="canonical" href="https://blog.lyndon.pw">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="linux,tips,">
+        <meta name="description" content="Docker拉镜像时出version `ZLIB_1.2.5.1&#39; not found的解决方法">
+        <meta name="author" content="Lyndon">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-5077443543369052",
+            enable_page_level_ads: true
+          });
+        </script>
+        <title>Docker拉镜像时出version `ZLIB_1.2.5.1&#39; not found的解决方法</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Lyndon Li&#39;s Blog
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Docker拉镜像时出version `ZLIB_1.2.5.1&#39; not found的解决方法</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    
+                    <span class="date" data-time="1523205231"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/linux/index.html">linux</a><a class="tag" href="/tag/tips/index.html">tips</a></span>
+                </section>
+                <article class="content"><blockquote>
+<p>今天在更新系统包后在拉取docker image 时莫名出现&rsquo;libz.so.1: version `ZLIB_1.2.5.1&rsquo; not found&rsquo;的错误，解决了顺便记录下。</p>
+</blockquote>
+
+<h2>docker pull 出错：</h2>
+
+<pre><code class="language-bash">deploy@DEV:~ $ docker pull redis:4-alpine
+4-alpine: Pulling from library/redis
+ff3a5c916c92: Extracting [==================================================&gt;]  2.066MB/2.066MB
+aae70a2e6027: Download complete
+87c655da471c: Download complete
+7f8fb829cc48: Download complete
+c72e0cff027d: Download complete
+276d6b52cd5b: Download complete
+4-alpine: Pulling from library/redis
+ff3a5c916c92: Extracting [==================================================&gt;]  2.066MB/2.066MB
+aae70a2e6027: Download complete
+87c655da471c: Download complete
+7f8fb829cc48: Download complete
+c72e0cff027d: Download complete
+276d6b52cd5b: Download complete
+failed to register layer: Error processing tar file(exit status 1: /usr/bin/unpigz: /usr/local/lib/libz.so.1: version `ZLIB_1.2.5.1' not found (required by /usr/bin/unpigz)
+):
+</code></pre>
+
+<h2>解决方法:</h2>
+
+<pre><code class="language-bash">wget http://zlib.net/zlib-1.2.11.tar.gz
+tar zxf zlib-1.2.11.tar.gz
+cd zlib-1.2.11
+./configure
+make &amp;&amp; make install
+</code></pre>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Lyndon</a>
+                    <div class="intro">一个保持清醒的沉睡者</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/blockchainvscurd.html">CRUD编程切换到事件溯源和区块链编程</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/hot-warm-architecture-in-elasticsearch-5-x-in-chinese.html">Hot warm architecture in elasticsearch</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//snakeliwei@gmail.com.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Lyndon Li&#39;s Blog ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="https://blog.lyndon.pw/" target="_blank">Lyndon</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>
