@@ -1,4 +1,4 @@
-title: Hash cmd on win
+title: 获取烽火光猫超级用户
 date: 2020-03-18 11:13:51 +0800
 update: 2020-03-18 12:00:00 +0800
 author: me
